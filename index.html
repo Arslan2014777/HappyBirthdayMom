@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Матрица из слов</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Happy Birthday Mom!</h1>
+<h2>Мама туған күніңмен!</h2>
+<h2>Мама мен сенің туғаң күніңе сайт
+істедім</h2>
+<h2>Developer:I.Arslan</h2>
+
+
+<canvas id="matrixCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
+
+// Подгоняем размер холста под экран
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Список слов
+const words = ['Happybirthdaymom', 'Iloveyou', 'Happybirthdaytoyou'];
+
+const fontSize = 18;
+ctx.font = fontSize + 'px monospace';
+
+// Вычисляем, сколько колонок поместится на экране
+let columns = Math.floor(canvas.width / fontSize);
+
+// Массив для хранения состояния каждой колонки
+// currentWord: индекс слова из массива words
+// charIndex: какую букву слова сейчас рисовать в самом низу потока
+// y: текущая координата Y для падающего слова
+// speed: скорость падения (шаг по оси Y)
+let drops = [];
+
+function initColumns() {
+  columns = Math.floor(canvas.width / fontSize);
+  drops = [];
+  for (let i = 0; i < columns; i++) {
+    drops[i] = {
+      currentWord: Math.floor(Math.random() * words.length),
+      charIndex: 0,
+      y: Math.random() * -canvas.height, // случайный старт выше экрана
+      speed: (Math.random() * 0.5 + 0.5) * fontSize // скорость привязана к размеру шрифта
+    };
+  }
+}
+initColumns();
+window.addEventListener('resize', initColumns);
+
+function draw() {
+  // Полупрозрачный черный фон создает эффект «шлейфа» (затухания) букв
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < drops.length; i++) {
+    const drop = drops[i];
+    const word = words[drop.currentWord];
+    
+    // Берем текущую букву из слова
+    const char = word[drop.charIndex];
+    const x = i * fontSize;
+
+    // Самая первая (нижняя) буква в потоке будет ярко-белой
+    ctx.fillStyle = '#fff';
+    ctx.fillText(char, x, drop.y);
+
+    // Следующие буквы, которые появятся на этом месте в следующих кадрах, станут зелеными
+    ctx.fillStyle = '#0f0';
+    
+    // Смещаем координату Y вниз для следующего шага
+    drop.y += drop.speed;
+    
+    // Переходим к следующей букве в слове
+    drop.charIndex++;
+
+    // Если слово закончилось, выбираем случайную паузу или сразу перезапускаем его сверху
+    if (drop.charIndex >= word.length) {
+      drop.charIndex = 0;
+      
+      // Если слово ушло за пределы экрана, возвращаем его наверх и берем новое слово
+      if (drop.y > canvas.height && Math.random() > 0.975) {
+        drop.y = -fontSize * 5;
+        drop.currentWord = Math.floor(Math.random() * words.length);
+      }
+    }
+  }
+}
+
+// Запуск анимации со скоростью ~30-60 кадров в секунду
+setInterval(draw, 40);
+
+</script>
+
+<div class="container">
+  <img src="https://cdn.phototourl.com/free/2026-07-26-b35be09e-8280-44d4-968a-e0780a0f6579.jpg" alt="Happybirthdaymom">
+  
+  <span class="codewheel-att">
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Мама,Туған күнің құтты болсын!
+   Ауырма,ақшан көп болсын,қартайма
+   Медицинский дипломын құтты болсын
+   Ана мен сені қатты жақсы көремін!❤️
+  </span>
+</div>
+
+ <script src="script.js"></script>
+ </body>
+ </html>
