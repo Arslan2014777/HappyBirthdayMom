@@ -7,13 +7,10 @@ let password = prompt("Введите пароль:");
 if (password === "31.07.1991") {
   alert("Доступ разрешен!");
   // Удаляем CSS-класс hidden, и контент плавно появляется
-  document.getElementById("secret-block").classList.remove("hidden");
 } else {
   alert("Неверный пароль.");
   window.location.href = "https://google.com";
 }
-
-document.addEventListener("DOMContentLoaded", function() {
   
   // Get text from HTML element
   const autoTyping = document.querySelector(".codewheel-att");
