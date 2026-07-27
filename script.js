@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function() {
+
+console.log("JS работает");
+
 let password = prompt("Введите пароль:");
 
 if (password === "31.07.1991") {
