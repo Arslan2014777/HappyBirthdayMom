@@ -108,8 +108,6 @@ const wishes = [
 ];
 
 function newWish() {
-
     const random = Math.floor(Math.random() * wishes.length);
-
     document.getElementById("wish").textContent = wishes[random];
-    }
+}
