@@ -145,3 +145,7 @@ img {
   height: 400px;
   object-fit: cover;
 }
+
+body {
+    display: none;
+}
