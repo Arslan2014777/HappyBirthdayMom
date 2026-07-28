@@ -4,13 +4,11 @@ console.log("JS работает");
 
 let password = prompt("Введите пароль:");
 
-if (password === "31.07.1991") {
-  alert("Доступ разрешен!");
-  // Удаляем CSS-класс hidden, и контент плавно появляется
-} else {
-  alert("Неверный пароль.");
-  window.location.href = "https://google.com";
+if (password !== "31.07.1991") {
+    window.location.href = "https://google.com";
 }
+
+document.body.style.display = "block";
   
   // Get text from HTML element
   const autoTyping = document.querySelector(".codewheel-att");
